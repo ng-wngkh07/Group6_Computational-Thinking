@@ -1,4 +1,5 @@
 def merge(arr: list[int], left: int, mid: int, right: int) -> None:
+    """Merge two sorted ranges into the original list."""
     L = arr[left : mid + 1]
     R = arr[mid + 1 : right + 1]
     i = 0  
@@ -22,6 +23,7 @@ def merge(arr: list[int], left: int, mid: int, right: int) -> None:
         k = k + 1
 
 def merge_sort(arr: list[int], left: int, right: int) -> None:
+    """Sort a selected list range using merge sort."""
     if left < right:
         mid = (left + right) // 2
         merge_sort(arr, left, mid)

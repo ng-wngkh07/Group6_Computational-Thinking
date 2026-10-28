@@ -5,6 +5,7 @@ from .models import Task
 
 
 def print_tasks(tasks: list[Task]) -> None:
+    """Print the details of each task."""
     for task in tasks:
         task_details = (
             f"{task.title} | importance={task.importance} | "
@@ -14,6 +15,7 @@ def print_tasks(tasks: list[Task]) -> None:
 
 
 def main() -> None:
+    """Load and print the sample tasks."""
     project_root = Path(__file__).resolve().parents[3]
     sample_path = project_root / "samples" / "tasks.csv"
     tasks = load_tasks(sample_path)

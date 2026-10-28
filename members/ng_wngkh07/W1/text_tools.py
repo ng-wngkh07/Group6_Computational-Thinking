@@ -1,4 +1,5 @@
 def word_count(text: str) -> dict[str, int]:
+    """Count words after normalizing case and punctuation."""
     punctuation = ".,!?;:"
     cleaned_text = text.lower()
     for char in punctuation:
@@ -9,11 +10,13 @@ def word_count(text: str) -> dict[str, int]:
         counts[word] = counts.get(word, 0) + 1
     return counts
 def top_k(text: str, k: int) -> list[tuple[str, int]]:
+    """Return the most frequent words in order."""
     if k <= 0:
         return []
     counts = word_count(text)
     danh_sach_cap = list(counts.items())
-    def tieu_chi_sap_xep(cap):
+    def tieu_chi_sap_xep(cap: tuple[str, int]) -> tuple[int, str]:
+        """Sort word counts by frequency and then alphabetically."""
         tu = cap[0]
         so_lan = cap[1]
         return (-so_lan, tu)
