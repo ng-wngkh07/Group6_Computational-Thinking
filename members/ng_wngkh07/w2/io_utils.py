@@ -1,5 +1,6 @@
 import csv
 import json
+from collections.abc import Iterator
 from datetime import date
 from pathlib import Path
 
@@ -8,7 +9,8 @@ from .models import Task
 HEADER = ["title", "importance", "effort_h", "deadline"]
 
 
-def read_csv_row(reader, line_number):
+def read_csv_row(reader: Iterator[list[str]], line_number: int) -> list[str] | None:
+    """Read one CSV row and report parsing errors with its line number."""
     try:
         row = next(reader, None)
     except csv.Error as error:
@@ -17,6 +19,7 @@ def read_csv_row(reader, line_number):
 
 
 def create_task_from_row(row: list[str], line_number: int) -> Task:
+    """Convert and validate one CSV row as a task."""
     try:
         if len(row) != 4:
             raise ValueError("expected 4 columns")
@@ -33,6 +36,7 @@ def create_task_from_row(row: list[str], line_number: int) -> Task:
 
 
 def load_tasks(path: str | Path) -> list[Task]:
+    """Load tasks from a CSV file."""
     tasks = []
 
     with open(path, encoding="utf-8", newline="") as csv_file:
@@ -55,6 +59,7 @@ def load_tasks(path: str | Path) -> list[Task]:
 
 
 def save_json(tasks: list[Task], path: str | Path) -> None:
+    """Save tasks and their deadlines as JSON."""
     task_records = []
 
     for task in tasks:

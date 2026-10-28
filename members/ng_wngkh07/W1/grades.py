@@ -1,4 +1,5 @@
-def summary(scores):
+def summary(scores: list[float]) -> dict[str, float]:
+    """Calculate score statistics, using zeros for an empty list."""
     if not scores:
         return {
             "min": 0,
