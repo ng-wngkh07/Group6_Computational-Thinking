@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from members.ntuanminh53_hub.w1 import grades, rules, text_tools, timetable, transposematrix
+from members.ntuanminh53_hub.w1 import grades, rules, text_tools, timetable, transposematrix  # noqa: E402
 
 
 def test_summary_basic_and_odd():

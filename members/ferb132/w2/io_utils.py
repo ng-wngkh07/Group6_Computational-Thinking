@@ -7,7 +7,7 @@ def load_tasks(path: str) -> list[Task]:
     tasks = []
     with open(path, mode='r', encoding='utf-8') as f:
         reader = csv.reader(f)
-        header = next(reader, None) 
+        next(reader, None)
         for i, row in enumerate(reader, start=2):
             try:
                 title, importance, effort_h, deadline_str = row
