@@ -1,6 +1,5 @@
 import argparse
 from datetime import date
-from pathlib import Path
 import sys
 
 from members.hoagpac.w2.io_utils import load_tasks

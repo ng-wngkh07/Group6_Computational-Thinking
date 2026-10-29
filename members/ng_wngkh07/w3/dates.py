@@ -1,20 +1,26 @@
+"""Utilities for parsing due-date expressions."""
+
 import re
 from datetime import date, timedelta
 
+WEEKDAYS = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+
 
 def parse_due(text: str, today: date) -> date:
-    """Convert a supported deadline description into a date."""
+    """Parse an ISO date, relative day expression, or weekday abbreviation.
+
+    A weekday matching ``today`` means its next occurrence, seven days later.
+    Unsupported expressions raise ``ValueError``.
+    """
     if text == "tomorrow":
         return today + timedelta(days=1)
 
     relative_date = re.fullmatch(r"in (\d+) days", text)
-    if relative_date:
-        number_of_days = int(relative_date.group(1))
-        return today + timedelta(days=number_of_days)
+    if relative_date is not None:
+        return today + timedelta(days=int(relative_date.group(1)))
 
-    weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    if text in weekdays:
-        target_weekday = weekdays.index(text)
+    if text in WEEKDAYS:
+        target_weekday = WEEKDAYS.index(text)
         days_ahead = (target_weekday - today.weekday()) % 7
         if days_ahead == 0:
             days_ahead = 7
